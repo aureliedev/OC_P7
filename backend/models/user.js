@@ -37,12 +37,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       max: 1024,
     },
-    followers: {
-      type: [String]
-    },
-    following: {
-      type: [String]
-    },
+    // followers: {
+    //   type: [String]
+    // },
+    // following: {
+    //   type: [String]
+    // },
     likes: {
       type: [String]
     }
@@ -51,14 +51,24 @@ const userSchema = new mongoose.Schema(
     timestamps: true, // date de creation et date de update
   }
 );
-// Bcrypt
+// Bcrypt = sale le MDP
 userSchema.pre("save", async function(next) { // crypt le MDP avec de l'enregistrer en DB
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-
-
+// decrypt le mdp avec .compare
+userSchema.statics.login = async function(email, password) {
+  const user = await this.findOne({ email });
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    }
+    throw Error('MDP incorrect');
+  }
+  throw Error('EMAIL incorrect')
+};
 
 const UserModel = mongoose.model("user", userSchema);
 
