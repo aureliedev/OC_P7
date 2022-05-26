@@ -10,6 +10,7 @@ router.post("/signup", authController.signUp); // auth signup
 router.get("/", userController.getAllUsers); // tous les users
 router.get("/:id", userController.getOneUser); // Un user
 router.put("/:id", userController.updateUser); // Modification d'user
+router.delete("/:id", userController.deleteUser); // Suppression d'user
 
 /* EXPORT */ 
 module.exports = router;

@@ -22,21 +22,35 @@ module.exports.getOneUser = (req, res) => {
 
 /*----------------- updateUser ---------------*/
 module.exports.updateUser = async (req, res) => {
-    if (!ObjectID.isValid(req.params.id))
-      return res.status(400).send("ID inconnu : " + req.params.id);
-  
-    try {
-      await UserModel.findOneAndUpdate( // trouve l'element et MAJ
-        { _id: req.params.id },
-        {
-          $set: {
-            bio: req.body.bio,
-          },
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+
+  try {
+    await UserModel.findOneAndUpdate(
+      // trouve l'element et MAJ
+      { _id: req.params.id },
+      {
+        $set: {
+          bio: req.body.bio,
         },
-        { new: true, upsert: true, setDefaultsOnInsert: true })
-        .then((data) => res.send(data))
-        .catch((err) => res.status(500).send({ message: err }));
-    } catch (err) {
-      return res.status(500).json({ message: err });
-    }
-  };
+      },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
+/*----------------- deleteUser ---------------*/
+module.exports.deleteUser = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+
+  try {
+    await UserModel.deleteOne({ _id: req.params.id }).exec();
+    res.status(200).json({ message: "User supprimé !" });
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+};
