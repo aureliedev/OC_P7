@@ -2,9 +2,12 @@
 /* IMPORT */
 const router = require("express").Router();
 const authController = require("../controllers/auth");
+const userController = require("../controllers/user");
 
-/* Création des routes signup and login */
+/* AUTH */
 router.post("/signup", authController.signUp);
+/* USER */
+router.get("/", userController.getAllUsers);
 
 /* EXPORT */ 
 module.exports = router;
