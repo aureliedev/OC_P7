@@ -67,34 +67,63 @@ module.exports.likePost = async (req, res) => {
     return res.status(400).send("ID inconnu : " + req.params.id);
 
   try {
-    await PostModel.findByIdAndUpdate(
-      // tableau des Posts
+    await PostModel.findByIdAndUpdate( // tableau des Posts
+      
       req.params.id,
       {
-        $addToSet: { likers: req.body.id }, // addToSet: Pr ajouter une data au tableau des likers
+        $addToSet: { likers: req.body.id }, //adtoset:  Pr ajouter une data au tableau des likers
       },
-      { new: true }
-    )
-      .then((data) => res.send(data))
-      .catch((err) => res.status(500).send({ message: err }));
+      { new: true },
 
-    await UserModel.findByIdAndUpdate(
-      // tableau des users
+      (err, data) => {
+        if (err) return res.status(400).send(err);
+      }
+    );
+    await UserModel.findByIdAndUpdate( // tableau des users
       req.body.id,
       {
-        $addToSet: { likes: req.params.id },
+        $addToSet: { likes: req.params.id }, //adtoset:  Pr ajouter une data au tableau des like
       },
-      { new: true }
-    )
-      .then((data) => res.send(data))
-      .catch((err) => res.status(500).send({ message: err }));
+      { new: true },
+      (err, data) => {
+        if (!err) return res.send(data);
+        else return res.status(400).send(err);
+      }
+    );
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 };
 
 /*----------------- DISLIKE POST ---------------*/
-module.exports.dislikePost = async (req, res) => {
+module.exports.dislikePost = async (req, res) => {;
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu : " + req.params.id);
+    try {
+        await PostModel.findByIdAndUpdate( // tableau des Posts
+          
+          req.params.id,
+          {
+            $pull: { likers: req.body.id }, //pull:  Pr retirer une data au tableau des likers
+          },
+          { new: true },
+    
+          (err, data) => {
+            if (err) return res.status(400).send(err);
+          }
+        );
+        await UserModel.findByIdAndUpdate( // tableau des users
+          req.body.id,
+          {
+            $pull: { likes: req.params.id }, //pull:  Pr ajouter une data au tableau des like
+          },
+          { new: true },
+          (err, data) => {
+            if (!err) return res.send(data);
+            else return res.status(400).send(err);
+          }
+        );
+      } catch (err) {
+        return res.status(500).send(err);
+      }
 };
