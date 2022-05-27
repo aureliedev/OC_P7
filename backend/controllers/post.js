@@ -34,9 +34,11 @@ module.exports.createPost = async (req, res) => {
 module.exports.updatePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu : " + req.params.id);
+
   const updatedRecord = {
     message: req.body.message,
   };
+
   PostModel.findByIdAndUpdate(
     req.params.id,
     { $set: updatedRecord }, //MAJ du message de l'user
@@ -48,7 +50,13 @@ module.exports.updatePost = (req, res) => {
   );
 };
 
-
-
 /*----------------- DELETEPOST ---------------*/
-module.exports.deletePost = (req, res) => {};
+module.exports.deletePost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+
+  PostModel.findByIdAndRemove(req.params.id, (err, data) => {
+    if (!err) res.send(data);
+    else console.log("Erreur de supression : " + err);
+  });
+};
