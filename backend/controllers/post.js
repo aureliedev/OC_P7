@@ -67,8 +67,7 @@ module.exports.likePost = async (req, res) => {
     return res.status(400).send("ID inconnu : " + req.params.id);
 
   try {
-    await PostModel.findByIdAndUpdate(
-      // tableau des Posts
+    await PostModel.findByIdAndUpdate(  // tableau des Posts
 
       req.params.id,
       {
@@ -80,8 +79,8 @@ module.exports.likePost = async (req, res) => {
         if (err) return res.status(400).send(err);
       }
     );
-    await UserModel.findByIdAndUpdate(
-      // tableau des users
+    await UserModel.findByIdAndUpdate(   // tableau des users
+
       req.body.id,
       {
         $addToSet: { likes: req.params.id }, //adtoset:  Pr ajouter une data au tableau des like
@@ -102,8 +101,7 @@ module.exports.dislikePost = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu : " + req.params.id);
   try {
-    await PostModel.findByIdAndUpdate(
-      // tableau des Posts
+    await PostModel.findByIdAndUpdate(      // tableau des Posts
 
       req.params.id,
       {
@@ -119,7 +117,7 @@ module.exports.dislikePost = async (req, res) => {
       // tableau des users
       req.body.id,
       {
-        $pull: { likes: req.params.id }, //pull:  Pr ajouter une data au tableau des like
+        $pull: { likes: req.params.id }, //pull:  Pr retirer une data au tableau des like
       },
       { new: true },
       (err, data) => {
@@ -141,8 +139,7 @@ module.exports.commentPost = (req, res) => {
     return PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        $push: {
-          //on push dans le tableau des comments
+        $push: {        //on push dans le tableau des comments
           comments: {
             commenterId: req.body.commenterId,
             commenterPseudo: req.body.commenterPseudo,
@@ -169,12 +166,14 @@ module.exports.updateCommentPost = (req, res) => {
     return res.status(400).send("ID inconnu : " + req.params.id);
 
   try {
-    return PostModel.findById(req.params.id, (err, data) => {   
-      const theComment = data.comments.find((comment) =>    //cherhce le comment'
-        comment._id.equals(req.body.commentId)              // detecte le comment'
+    return PostModel.findById(req.params.id, (err, data) => {
+      const theComment = data.comments.find(
+        (
+          comment                                       //cherhce le comment'
+        ) => comment._id.equals(req.body.commentId)             // detecte le comment'
       );
 
-      if (!theComment) return res.status(404).send("Comment' pas trouvé");  //theComment est le comment' recherché
+      if (!theComment) return res.status(404).send("Comment' pas trouvé"); //theComment est le comment' recherché
       theComment.text = req.body.text;
 
       return data.save((err) => {
@@ -184,5 +183,32 @@ module.exports.updateCommentPost = (req, res) => {
     });
   } catch (err) {
     return res.status(500).send(err);
+  }
+};
+
+/*----------------- DELETE COMMENTAIRE DE POST ---------------*/
+module.exports.deleteCommentPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+
+  try {
+    return PostModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        $pull: {        //pull:  Pr retirer une data au tableau des comments(le comment avec son id)
+          comments: {
+            _id: req.body.commentId,
+          },
+        },
+      },
+      { new: true },
+
+      (err, data) => {
+        if (!err) return res.send(data);
+        else return res.status(500).send(err);
+      }
+    );
+  } catch (err) {
+    return res.status(400).send(err);
   }
 };
