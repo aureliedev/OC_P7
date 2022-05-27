@@ -14,24 +14,41 @@ module.exports.getPost = (req, res) => {
 
 /*----------------- CREATEPOST ---------------*/
 module.exports.createPost = async (req, res) => {
-    
-    const newPost = new postModel({
-        posterId: req.body.posterId,
-        message: req.body.message,
-        video: req.body.video,
-        likers: [],
-        comments: [],
-      });
-    
-      try {
-        const post = await newPost.save();
-        return res.status(201).json(post);
-      } catch (err) {
-        return res.status(400).send(err);
-      }
+  const newPost = new postModel({
+    posterId: req.body.posterId,
+    message: req.body.message,
+    video: req.body.video,
+    likers: [],
+    comments: [],
+  });
+
+  try {
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };
 
 /*----------------- UPDATEPOST ---------------*/
-module.exports.updatePost = (req, res) => {};
+module.exports.updatePost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+  const updatedRecord = {
+    message: req.body.message,
+  };
+  PostModel.findByIdAndUpdate(
+    req.params.id,
+    { $set: updatedRecord }, //MAJ du message de l'user
+    { new: true },
+    (err, data) => {
+      if (!err) res.send(data);
+      else console.log("Erreur de MAJ : " + err);
+    }
+  );
+};
+
+
+
 /*----------------- DELETEPOST ---------------*/
 module.exports.deletePost = (req, res) => {};
