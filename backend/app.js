@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser');
 
 const { checkUser, requireAuth } = require('./middleware/auth');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+
 
 const app = express();
 
@@ -34,8 +36,10 @@ app.get('/jwtid', requireAuth, (req, res) => {
     res.status(200).send(res.locals.user._id)
 });
 
-//routes
+//ROUTES
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
+
 
 /* EXPORT */ 
 module.exports = app;
