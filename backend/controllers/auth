@@ -2,7 +2,7 @@
 const UserModel = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-const maxAge = '24h';
+const maxAge = 3 * 24 * 60 * 60 * 1000; // =24h
 const createToken = (id) => {
   return jwt.sign({id}, process.env.TOKEN_SECRET, {
     expiresIn: maxAge
@@ -15,7 +15,7 @@ module.exports.signUp = async (req, res) => {
   const {pseudo, email, password} = req.body
     
   try {
-    const user = await UserModel.create({pseudo, email, password });
+    const user = await UserModel.create({ pseudo, email, password });
     res.status(201).json({ user: user._id}); // renvoi l'user id 
   }
   catch(err) {
