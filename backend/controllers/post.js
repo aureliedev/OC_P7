@@ -62,11 +62,39 @@ module.exports.deletePost = (req, res) => {
 };
 
 /*----------------- LIKE POST ---------------*/
-module.exports.likePost = async (req, res) =>{
+module.exports.likePost = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
 
+  try {
+    await PostModel.findByIdAndUpdate(
+      // tableau des Posts
+      req.params.id,
+      {
+        $addToSet: { likers: req.body.id }, // addToSet: Pr ajouter une data au tableau des likers
+      },
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+
+    await UserModel.findByIdAndUpdate(
+      // tableau des users
+      req.body.id,
+      {
+        $addToSet: { likes: req.params.id },
+      },
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };
 
 /*----------------- DISLIKE POST ---------------*/
-module.exports.dislikePost = async (req, res) =>{
-    
+module.exports.dislikePost = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
 };
