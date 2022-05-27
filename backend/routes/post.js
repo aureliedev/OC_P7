@@ -15,7 +15,7 @@ router.patch('/dislikepost/:id', postController.dislikePost);
 //comment de post
 router.patch('/commentpost/:id', postController.commentPost);
 router.patch('/updatecommentpost/:id', postController.updateCommentPost);
-
+router.patch('/deletecommentpost/:id', postController.deleteCommentPost);
 
 /* EXPORT */ 
 module.exports = router;
