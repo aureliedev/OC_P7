@@ -1,6 +1,6 @@
 /* IMPORT */
 const UserModel = require("../models/user");
-const ObjectID = require("mongoose").Types.ObjectId;
+const ObjectID = require("mongoose").Types.ObjectId; // Pr vérifier que le parametre passé existe dans la DB
 
 /*----------------- getAllUsers ---------------*/
 module.exports.getAllUsers = async (req, res) => {
