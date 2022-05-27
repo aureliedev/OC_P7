@@ -6,8 +6,8 @@ const ObjectID = require("mongoose").Types.ObjectId; // Pr vérifier que le para
 
 /*----------------- GETPOST ---------------*/
 module.exports.getPost = (req, res) => {
-  PostModel.find((err, docs) => {
-    if (!err) res.send(docs);
+  PostModel.find((err, data) => {
+    if (!err) res.send(data);
     else console.log("Error to get data : " + err);
   }).sort({ createdAt: -1 }); // affichage des posts des +recent ou + ancien
 };
@@ -141,7 +141,8 @@ module.exports.commentPost = (req, res) => {
     return PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        $push: {                                    //on push dans le tableau des comments
+        $push: {
+          //on push dans le tableau des comments
           comments: {
             commenterId: req.body.commenterId,
             commenterPseudo: req.body.commenterPseudo,
@@ -157,6 +158,30 @@ module.exports.commentPost = (req, res) => {
         else return res.status(400).send(err);
       }
     );
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+};
+
+/*----------------- UPDATE COMMENTAIRE DE POST ---------------*/
+module.exports.updateCommentPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconnu : " + req.params.id);
+
+  try {
+    return PostModel.findById(req.params.id, (err, data) => {   
+      const theComment = data.comments.find((comment) =>    //cherhce le comment'
+        comment._id.equals(req.body.commentId)              // detecte le comment'
+      );
+
+      if (!theComment) return res.status(404).send("Comment' pas trouvé");  //theComment est le comment' recherché
+      theComment.text = req.body.text;
+
+      return data.save((err) => {
+        if (!err) return res.status(200).send(data);
+        return res.status(500).send(err);
+      });
+    });
   } catch (err) {
     return res.status(500).send(err);
   }
