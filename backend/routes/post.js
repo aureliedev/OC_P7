@@ -12,8 +12,9 @@ router.delete('/:id', postController.deletePost);
 //likes
 router.patch('/likepost/:id', postController.likePost);
 router.patch('/dislikepost/:id', postController.dislikePost);
-//comment
+//comment de post
 router.patch('/commentpost/:id', postController.commentPost);
+router.patch('/updatecommentpost/:id', postController.updateCommentPost);
 
 
 /* EXPORT */ 
