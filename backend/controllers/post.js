@@ -60,3 +60,13 @@ module.exports.deletePost = (req, res) => {
     else console.log("Erreur de supression : " + err);
   });
 };
+
+/*----------------- LIKE POST ---------------*/
+module.exports.likePost = async (req, res) =>{
+
+};
+
+/*----------------- DISLIKE POST ---------------*/
+module.exports.dislikePost = async (req, res) =>{
+    
+};
