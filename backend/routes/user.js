@@ -13,6 +13,8 @@ router.get("/", userController.getAllUsers); // tous les users
 router.get("/:id", userController.getOneUser); // Un user
 router.put("/:id", userController.updateUser); // Modification d'user
 router.delete("/:id", userController.deleteUser); // Suppression d'user
+/* UPLOAD */
+router.post("/upload", authController.uploadProfil); // upload
 
-/* EXPORT */ 
+/* EXPORT */
 module.exports = router;
