@@ -1,9 +1,40 @@
+/******************************* INDEX DU COMPONENT LOG **********************************/ 
+
+/*------------------IMPORT--------------------*/ 
 import React from "react";
+import { useState } from "react"; /* useState (hook) renvoie une paire de valeurs dans un tableau de 2 valeurs, récupérée dans les variables entre crochets. */ 
+import SignUpForm from "./SignUpForm";
+import LogInForm from "./LogInForm";
 
-function index() {
-  return <div className="connection-form">
-      
-  </div>;
-}
+/*----------------FONCTION LOG--------------------*/ 
+function Log(props) {
+  const [signUpModal, setSignUpModal] = useState(props.signup); /* (props): pr réutilser la function ailleurs */ 
+  const [logInModal, setlogInModal] = useState(props.login);
 
-export default index;
+  /*Pr identifier l'evenement en fonction du clique*/ 
+  const handleModals = (e) => {
+    if (e.target.id === "signup") {
+      setlogInModal(false);
+      setSignUpModal(true);
+    } else if (e.target.id === "login") {
+      setSignUpModal(false);
+      setlogInModal(true);
+    }
+  };
+
+  return (
+    <div className="connection-form">
+      <div className="form-container">
+        <ul> {/*--En fonction du clique, affichage de s'inscrire ou se connecter--*/ }
+          <li onClick={handleModals} id="signup" className={signUpModal ? "active-btn" : null} > S'inscrire</li>
+          <li onClick={handleModals} id="login" className={logInModal ? "active-btn" : null} > Se connecter </li>
+        </ul>
+        {signUpModal && <SignUpForm />}
+        {logInModal && <LogInForm />}
+      </div>
+    </div>
+  );
+};
+
+/*------------------EXPORT--------------------*/ 
+export default Log;
