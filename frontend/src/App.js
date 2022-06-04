@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
+import Routes from "./components/Routes/";
 
 const App = () => {
   return (
-    <div> 
-      HELLO WORD !
+    <div>
+      <Routes />
     </div>
   );
 };
 
 export default App;
-
