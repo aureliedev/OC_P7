@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
+import Log from "../components/Log";
 
-const Profil = () => {
-    return (
-      <div>
-        hello depuis Profil
+function Profil() {
+  return (
+    <div className="profil-page">
+      <div className="log-container">
+        <Log />
+        <div className="img-container">
+          <img src="./img/icon-left-font.svg" alt="img-connexion" />
+        </div>
       </div>
-    );
-  };
-  
-  export default Profil;
+    </div>
+  );
+}
+
+export default Profil;
