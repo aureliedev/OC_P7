@@ -23,13 +23,26 @@ module.exports.signUpErrors = (err) => {
 };
 
 /*----- POUR LES ERREURS A LA CONNEXION -------*/
-module.exports.loginErrors = (err) => {
-  let errors = { email: "", password: "" };
+module.exports.logInErrors = (err) => {
+  let errors = { email: '', password: ''}
 
-  if (err.message.includes("email")) errors.email = "Email inconnu";
-
-  if (err.message.includes("password"))
-    errors.password = "Mot de passe ne correspond pas";
+  if (err.message.includes("email")) 
+    errors.email = "Email inconnu";
+  
+  if (err.message.includes('password'))
+    errors.password = "Le mot de passe ne correspond pas"
 
   return errors;
 };
+
+// /*----- POUR LES ERREURS DES IMAGES -------*/
+// module.exports.uploadErrors = (err) => {
+//   let errors = { format: "", maxSize: "" };
+
+//   if (err.message.includes("invalid file")) errors.format = "Format invalide";
+
+//   if (err.message.includes("max size"))
+//     errors.maxSize = "Le fichier est trop lourd (+ 500ko)";
+
+//   return errors;
+// };
