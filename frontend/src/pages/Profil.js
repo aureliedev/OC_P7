@@ -1,5 +1,5 @@
 /*---------IMPORT----------*/ 
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Log from "../components/Log";
 import { UidContext } from "../components/AppContext";
 

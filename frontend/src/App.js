@@ -6,7 +6,7 @@ import { UidContext } from "./components/AppContext";
 import Routes from "./components/Routes/";
 import axios from "axios";
 
- /* Pour avoir le tokendans la data de l'utilisateur connecté */
+ /* Pour avoir le token dans la data de l'utilisateur connecté */
 const App = () => {
 
   const [uid, setUid] = useState(null); /* Création du uid que l'on SetUid */
@@ -14,7 +14,7 @@ const App = () => {
   useEffect(() => {
     const fetchToken = async () => {
       await axios({
-        method: "get", /*Grace au get on revoit dans la response le token de l'user*/
+        method: "get", /*Grace au get on renvoit ds la response le token de l'user*/
         url: `${process.env.REACT_APP_URL_API}jwtid`,
         withCredentials: true,
       })
@@ -22,7 +22,7 @@ const App = () => {
           console.log(res);
           setUid(res.data); /* On le passe ici */
         })
-        .catch((err) => console.log("Pas de token"));
+        .catch((err) => console.log("Pas de Token !"));
     };
     fetchToken();
 

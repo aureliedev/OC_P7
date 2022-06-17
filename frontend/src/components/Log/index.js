@@ -9,19 +9,20 @@ import LogInForm from "./LogInForm";
 /*----------------FONCTION LOG--------------------*/ 
 function Log(props) {
   const [signUpModal, setSignUpModal] = useState(props.signup); /* (props): pr réutilser la function ailleurs */ 
-  const [logInModal, setlogInModal] = useState(props.login);
+  const [logInModal, setLogInModal] = useState(props.login);
 
-  /*Pr identifier l'evenement en fonction du clique*/ 
+  /*Pr identifier l'evenement en fonction du clique (INSCRIPTION, SE CONNECTER) */ 
   const handleModals = (e) => {
     if (e.target.id === "signup") {
-      setlogInModal(false);
+      setLogInModal(false);
       setSignUpModal(true);
     } else if (e.target.id === "login") {
       setSignUpModal(false);
-      setlogInModal(true);
+      setLogInModal(true);
     }
   };
 
+  /*---------------- AFFICHAGE RENDU VISUEL --------------------*/ 
   return (
     <div className="connection-form">
       <div className="form-container">
