@@ -24,15 +24,15 @@ module.exports.signUpErrors = (err) => {
 
 /*----- POUR LES ERREURS A LA CONNEXION -------*/
 module.exports.logInErrors = (err) => {
-  let errors = { email: '', password: ''}
+  let errors = { email: '', password: '' }
 
-  if (err.message.includes("email")) 
-    errors.email = "Email inconnu";
-  
+  if (err.message.includes('email'))
+      errors.email = 'email inconnu'
+
   if (err.message.includes('password'))
-    errors.password = "Le mot de passe ne correspond pas"
+      errors.password = 'mot de passe incorrect'
 
-  return errors;
+  return errors
 };
 
 // /*----- POUR LES ERREURS DES IMAGES -------*/
