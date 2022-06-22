@@ -12,7 +12,7 @@ const App = () => {
   const [uid, setUid] = useState(null); /* Création du uid que l'on SetUid */
 
   useEffect(() => {
-    const fetchToken = async () => {
+    const fetchToken = async() => {
       await axios({
         method: "get", /*Grace au get on renvoit ds la response le token de l'user*/
         url: `${process.env.REACT_APP_URL_API}jwtid`,

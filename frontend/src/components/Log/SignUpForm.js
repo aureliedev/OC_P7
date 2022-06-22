@@ -1,26 +1,38 @@
+/******************************* FORMULAIRE D' INSCRIPTION **********************************/
+/*---------IMPORT----------*/
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import LogInForm from "./LogInForm";
 
+/* fonction du formulaire d'inscription */
 function SignUpForm() {
-    const [formSubmit, setFormSubmit] = useState(false);
+    
+    const [formSubmit, setFormSubmit] = useState(false); /* formsubmit pour que l'user se connecte une fois son inscription */
     const [pseudo, setPseudo] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [controlPassword, setControlPassword] = useState('');
 
-    const handleRegister = async(e) => {
-        e.preventdefault();
+    /* Pour la communication avec le backend */
+    const handleSignup = async(e) => {
+        e.preventDefault(); /* pas de rechargement de page quand il y a une action */
+        
+        
+
+        /* Gestion des errors */
         const pseudoError = document.querySelector('.pseudo.error');
         const emailError = document.querySelector('.email.error');
         const passwordError = document.querySelector('.password.error');
         const passwordConfirmError = document.querySelector('.password-confirm.error');
 
-        passwordConfirmError.innerHTML = "";
-
+        //passwordConfirmError.innerHTML = "";
+        
+        
+ 
         if(password !== controlPassword) {
             passwordConfirmError.innerHTML = "Les mots de passe ne correspondent pas";
-        } else {
+        } 
+        else {
             await axios({
                 method: "post",
                 url: `${process.env.REACT_APP_URL_API}api/user/signup`,
@@ -41,20 +53,21 @@ function SignUpForm() {
                     setFormSubmit(true);
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((err) => console.log(err));
         }
     }
 
+    /* Affichage du fomulaire Inscription en front */
     return (
         <>
-            {formSubmit ? (
+            {formSubmit ? ( /* si le loginform est sur TRUE l'user peut se connecté */
                 <>
                 <LogInForm />
                 <span></span>
-                <h4 className="sucess">Vous pouvez vous connecter!</h4>
+                <h4 className="success">Inscription réussie, vous pouvez vous connecter!</h4>
                 </>
             ) : (
-                <form action="" onSubmit={handleRegister} id="sign-up-form">
+                <form action="" onSubmit={handleSignup} id="sign-up-form">
                     <label htmlFor="pseudo">Pseudo</label> {/*htmlFor est l'équivalent React de for en JS*/}
                     <br/>
                     <input type="text" name="pseudo" id="pseudo" onChange={(e) => setPseudo(e.target.value)} value={pseudo}/>

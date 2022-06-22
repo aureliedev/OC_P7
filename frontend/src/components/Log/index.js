@@ -27,7 +27,7 @@ function Log(props) {
     <div className="connection-form">
       <div className="form-container">
         <ul> {/*--En fonction du clique, affichage de s'inscrire ou se connecter--*/ }
-          <li onClick={handleModals} id="signup" className={signUpModal ? "active-btn" : null} > S'inscrire</li>
+          <li onClick={handleModals} id="signup" className={signUpModal ? "active-btn" : null} > S'inscrire</li> {/*ter ner si signUpModal est TRUE la classe scss active-btn est activée sinon ' :' ( est FALSE) pas activé 'null'*/ }
           <li onClick={handleModals} id="login" className={logInModal ? "active-btn" : null} > Se connecter </li>
         </ul>
         {signUpModal && <SignUpForm />}

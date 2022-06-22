@@ -6,7 +6,7 @@ import { UidContext } from "../components/AppContext";
 /*---------FONCTION PROFIL----------*/ 
 function Profil() {
 /* token authentification de connexion */ 
-const uid = useContext(UidContext)
+const uid = useContext(UidContext);
 
   return (
     <div className="profil-page">
