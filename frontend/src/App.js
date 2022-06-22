@@ -1,10 +1,10 @@
 /******************************* APP.JS **********************************/ 
-
 /*---------IMPORT----------*/
 import { useState, useEffect } from "react";
 import { UidContext } from "./components/AppContext";
 import Routes from "./components/Routes/";
 import axios from "axios";
+import NavBar from "./components/NavBar";
 
  /* Pour avoir le token dans la data de l'utilisateur connecté */
 const App = () => {
@@ -30,6 +30,7 @@ const App = () => {
 
   return ( 
     <UidContext.Provider value={uid}> {/*Stockage userID dans l'app pour contextualiser l'appli, a chaque appel de component */}
+      <NavBar />
       <Routes />
     </UidContext.Provider>
   );
