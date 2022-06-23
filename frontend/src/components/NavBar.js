@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
 
+/*---------FUNCTION NAVBAR----------*/
 const NavBar = () => {
   const uid = useContext(UidContext); /* on verifie si luser a ses données */
 
@@ -28,6 +29,7 @@ const NavBar = () => {
                 <h5>Bienvenue</h5>
               </NavLink>
             </li>
+            logo LOGOUT
           </ul>
         ) : (
           <ul>
@@ -44,4 +46,5 @@ const NavBar = () => {
   );
 };
 
+/*---------EXPORT----------*/
 export default NavBar;
