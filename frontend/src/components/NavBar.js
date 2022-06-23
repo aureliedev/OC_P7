@@ -1,23 +1,47 @@
-/******************************* BARRE DE NAVIGATION **********************************/ 
+/******************************* BARRE DE NAVIGATION **********************************/
 /*---------IMPORT----------*/
-import React from 'react';
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { UidContext } from "./AppContext";
 
 const NavBar = () => {
-    return (
-        <nav>
-            <div className="nav-container">
+  const uid = useContext(UidContext); /* on verifie si luser a ses données */
+
+  return (
+    <nav>
+      <div className="nav-container">
+        <div className="logo">
+          <NavLink exact="true" to="/">
             <div className="logo">
-                    <NavLink exact="true" to="/">
-                        <div className="logo">
-                            <img src="./img/icon-left-font-monochrome-black.svg" alt="Logo Groupomania"/>
-                            {/* <h1>Groupomania</h1> */}
-                        </div>
-                    </NavLink>
-                </div>
+              <img
+                src="./img/icon-left-font-monochrome-black.svg"
+                alt="Logo Groupomania"
+              />
             </div>
-        </nav>
-    );
+          </NavLink>
+        </div>
+        {uid ? (
+          <ul>
+            <li></li>
+            <li className="welcome">
+              <NavLink exact to="/profil">
+                <h5>Bienvenue</h5>
+              </NavLink>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li></li>
+            <li>
+              <NavLink exact="true" to="/profil">
+                <img src="./img/icons/login.svg" alt="Login" />
+              </NavLink>
+            </li>
+          </ul>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default NavBar;
