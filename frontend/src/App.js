@@ -5,11 +5,14 @@ import { UidContext } from "./components/AppContext";
 import Routes from "./components/Routes/";
 import axios from "axios";
 import NavBar from "./components/NavBar";
+import { useDispatch } from "react-redux";
+import { getUser } from "./actions/userActions";
 
- /* Pour avoir le token dans la data de l'utilisateur connecté */
+/* Pour avoir le token dans la data de l'utilisateur connecté */
 const App = () => {
 
   const [uid, setUid] = useState(null); /* Création du uid que l'on SetUid */
+  const dispatch = useDispatch(); /* dispatch est MAJ a chaque action sur le site*/
 
   useEffect(() => {
     const fetchToken = async() => {
@@ -26,7 +29,8 @@ const App = () => {
     };
     fetchToken();
 
-  }, [uid]); /* On le passe encore ici */
+    if (uid) dispatch(getUser(uid))
+  }, [uid, dispatch]); /* On le passe encore ici */
 
   return ( 
     <UidContext.Provider value={uid}> {/*Stockage userID dans l'app pour contextualiser l'appli, a chaque appel de component */}
