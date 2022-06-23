@@ -2,13 +2,17 @@
 
 /*---------IMPORT----------*/ 
 import React from 'react';
+import LeftNavBar from '../LeftNavBar';
 
 
 /*---------Component UpdateProfil----------*/
 const UpdateProfil = () => {
+    
+    
+    /*---------Affichage FRONTENT----------*/
     return (
-        <div>
-            PAGE UpdateProfil.js
+        <div className='profil-containeur'>
+            <LeftNavBar />
         </div>
     );
 };
