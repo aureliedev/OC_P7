@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import Log from "../components/Log";
 import { UidContext } from "../components/AppContext";
+import UpdateProfil from "../components/Profil/UpdateProfil";
 
 /*---------FONCTION PROFIL----------*/ 
 function Profil() {
@@ -11,7 +12,7 @@ const uid = useContext(UidContext);
   return (
     <div className="profil-page">
       {uid ? ( /* uid ? = true Si le token est ok, on envoi a l'update profil*/
-        <h1> page UPDATE </h1>
+        <UpdateProfil />
       ) : ( /* sinon on rest la */
       <div className="log-container">
         <Log login={false} signup={true} /> {/* Log/index.js ligne 10>12 (props): pr afficher ce que l'on souhaite en premier ( Signin en l'occurence)*/}
