@@ -3,6 +3,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
+import Logout from "./Log/Logout";
 
 /*---------FUNCTION NAVBAR----------*/
 const NavBar = () => {
@@ -29,7 +30,7 @@ const NavBar = () => {
                 <h5>Bienvenue</h5>
               </NavLink>
             </li>
-            logo LOGOUT
+            <Logout />
           </ul>
         ) : (
           <ul>
