@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
+import { getAllUsers } from "./actions/allUsersActions";
 
 /* DEVTOOLS a retirer en mode production */
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -20,7 +21,10 @@ const root = createRoot(rootElement);
 
 const store = createStore(
   rootReducer, composeWithDevTools(applyMiddleware(thunk, logger))
-)
+);
+
+/*--- Pr acceder a tous les USERS ------*/
+store.dispatch(getAllUsers());
 
 /*-------------------*/
 root.render(
