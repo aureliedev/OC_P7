@@ -9,6 +9,7 @@ import {
 } from "react-redux"; /*récup' des data depuis le store*/
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/userActions";
+import { parserDate } from "../Utils";
 
 /*---------Component UpdateProfil----------*/
 const UpdateProfil = () => {
@@ -62,6 +63,7 @@ const UpdateProfil = () => {
               </>
             )}
           </div>
+           <h4>Membre depuis le : {parserDate( userData.createdAt)} </h4> {/*createdAt: timestamp créer automatiquement par mongoDB */}
         </div>
       </div>
     </div>
