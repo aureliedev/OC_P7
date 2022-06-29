@@ -9,8 +9,7 @@ export const UPDATE_BIO = "UPDATE_BIO";
 
 /*---------fonction getUser----------*/
 export const getUser = (uid) => {
-  return (dispatch) => {
-    /* dispatch: ce qui est envoyé au reducer */
+  return (dispatch) => { /* dispatch: ce qui est envoyé au reducer */
     return axios
       .get(`${process.env.REACT_APP_URL_API}api/user/${uid}`)
       .then((res) => {

@@ -3,6 +3,7 @@
 /*---------IMPORT----------*/
 import { GET_USER, UPDATE_BIO, UPLOAD_PICTURE } from "../actions/userActions";
 
+/*-------------------*/
 const initialState = {};
 
 /*---------fonction userReducer----------*/
