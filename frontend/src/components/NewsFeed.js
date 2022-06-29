@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; /* useDispatch HOOK */
 import { getPosts } from "../actions/postActions";
+import Card from "./Post/Card";
 import { isEmpty } from "./Utils";
 
 /*--------- fonction FIL D'ACTU ----------*/
@@ -24,7 +25,7 @@ const NewsFeed = () => {
       <ul> {/* Va afficher les cards grace a leurs posts ID */}
         {!isEmpty(posts[0]) &&
           posts.map((post) => {
-            return <li> {post._id} </li>;
+            return <Card post={post} key={post._id} />; /* Récup les post et une key unique grace au post.ID */
           })}
       </ul>
     </div>
