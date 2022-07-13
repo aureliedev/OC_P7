@@ -57,12 +57,16 @@ const Card = ({ post }) => {
                         if (user._id === post.posterId) return user.pseudo;
                         else return null;
                       })
-                    // .join('')
                   }
                 </h3>
               </div>
-              <span>{parserDate(post.createdAt)}</span>
+              <span>{parserDate(post.createdAt)}</span> {/* affichage de la date (fonction dans utils.js) */ }
             </div>
+            <p>{post.message} </p>
+            {post.picture && (
+              <img src={post.picture} alt="photographie de post" className="card-pic" />
+            )}
+            <div className="card-footer"> </div>
           </div>
         </>
       )}
