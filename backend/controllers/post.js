@@ -1,8 +1,13 @@
+/******************** CONFIGURATION DES POSTS CONTROLLERS ********************/
 /* IMPORT */
 const postModel = require("../models/post");
 const PostModel = require("../models/post");
 const UserModel = require("../models/user");
-const ObjectID = require("mongoose").Types.ObjectId; // Pr vérifier que le parametre passé existe dans la DB
+const { uploadErrors } = require("../utils/errors");
+const ObjectID = require("mongoose").Types.ObjectId;
+const fs = require("fs"); //FileSysteme dependence native node.js
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline); // stream.pipeline(): flux et rappel
 
 /*----------------- GETPOST ---------------*/
 module.exports.getPost = (req, res) => {
@@ -14,9 +19,40 @@ module.exports.getPost = (req, res) => {
 
 /*----------------- CREATEPOST ---------------*/
 module.exports.createPost = async (req, res) => {
+  let fileName; /* nom du fichier généré */
+
+  /* Si il y a une image, on lance les vérifications */
+  if (req.file !== null) {
+    try {
+      if (
+        /* vérification du format de l'image */
+        req.file.detectedMimeType != "image/jpg" &&
+        req.file.detectedMimeType != "image/png" &&
+        req.file.detectedMimeType != "image/jpeg"
+      )
+      throw Error("Format d'image invalide !");
+
+      /* vérification de la taille de l'image*/
+      if (req.file.size > 500000) throw Error("Image trop volumineuse !");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(201).json({ errors });
+    }
+    /* Le nom du fichier: id du poster + date + .jpg */
+    fileName = req.body.posterId + Date.now() + ".jpg";
+
+    await pipeline(
+      req.file.stream, /* chemin de stockage de l'image */
+      fs.createWriteStream(
+        `${__dirname}/../../frontend/public/uploads/posts/${fileName}`
+      )
+    );
+  }
+
   const newPost = new postModel({
     posterId: req.body.posterId,
     message: req.body.message,
+    picture: req.file !== null ? "./uploads/posts/" + fileName : "", /* si il y a un fichier alors on l'a stok en DataBase avec le chemin avec son nom(filename)*/
     video: req.body.video,
     likers: [],
     comments: [],
@@ -29,6 +65,7 @@ module.exports.createPost = async (req, res) => {
     return res.status(400).send(err);
   }
 };
+
 
 /*----------------- UPDATEPOST ---------------*/
 module.exports.updatePost = (req, res) => {

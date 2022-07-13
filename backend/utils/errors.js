@@ -24,25 +24,25 @@ module.exports.signUpErrors = (err) => {
 
 /*----- POUR LES ERREURS A LA CONNEXION -------*/
 module.exports.logInErrors = (err) => {
-  let errors = { email: '', password: '' }
+  let errors = { email: "", password: "" }
 
-  if (err.message.includes('email'))
-      errors.email = 'email inconnu'
+  if (err.message.includes("email"))
+      errors.email = "email inconnu"
 
-  if (err.message.includes('password'))
-      errors.password = 'mot de passe incorrect'
+  if (err.message.includes("password"))
+      errors.password = "mot de passe incorrect"
 
   return errors
 };
 
-// /*----- POUR LES ERREURS DES IMAGES -------*/
-// module.exports.uploadErrors = (err) => {
-//   let errors = { format: "", maxSize: "" };
+/*----- POUR LES ERREURS DES IMAGES -------*/
+module.exports.uploadErrors = (err) => {
+  let errors = { format: "", maxSize: "" };
 
-//   if (err.message.includes("invalid file")) errors.format = "Format invalide";
+  if (err.message.includes("Format d'image invalide !")) errors.format = "Format invalide";
 
-//   if (err.message.includes("max size"))
-//     errors.maxSize = "Le fichier est trop lourd (+ 500ko)";
+  if (err.message.includes("Image trop volumineuse !"))
+    errors.maxSize = "Le fichier est trop lourd (+ 500ko)";
 
-//   return errors;
-// };
+  return errors;
+};
