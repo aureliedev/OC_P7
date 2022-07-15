@@ -2,7 +2,7 @@
 /*---------IMPORT----------*/
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { likePost } from "../../actions/postActions";
+import { dislikePost, likePost } from "../../actions/postActions";
 import { UidContext } from "../AppContext";
 
 /*--------- FONCTION BOUTON LIKE ----------*/
@@ -16,7 +16,8 @@ const LikeButton = ({ post }) => {
     setLiked(true);
   };
   const dislike = () => {
-
+    dispatch(dislikePost(post._id, uid))
+    setLiked(false);
   };
 
   useEffect(() => { /* On test si le post est liké */
@@ -32,7 +33,8 @@ const LikeButton = ({ post }) => {
         )}
         {uid && liked && (
                 <img src="./img/icons/heart-filled.svg" onClick={dislike} alt="dislike la publication"/>
-            )}
+        )}
+        <span>{post.likers.length}</span> {/* Pr afficher le nbre de like du tableau des likers */}
     </div>
   )
 };

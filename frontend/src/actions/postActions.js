@@ -5,7 +5,7 @@ import axios from "axios";
 /*---------POSTS----------*/
 export const GET_POSTS = "GET_POSTS";
 export const LIKE_POST = "LIKE_POST";
-//export const DISLIKE_POST = "DISLIKE_POST";
+export const DISLIKE_POST = "DISLIKE_POST";
 
 /*---------getPosts----------*/
 export const getPosts = () => {
@@ -35,4 +35,19 @@ export const likePost = (postId, userId) => {
     })
     .catch((err) => console.log(err));
   }
-}
+};
+
+/*---------dislikePost----------*/
+export const dislikePost = (postId, userId) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_URL_API}api/post/dislikepost/` + postId,
+      data: { id: userId },
+    })
+      .then((res) => {
+        dispatch({ type: DISLIKE_POST, payload: { postId, userId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
