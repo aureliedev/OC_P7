@@ -9,15 +9,27 @@ import { isEmpty } from "./Utils";
 /*--------- fonction FIL D'ACTU ----------*/
 const NewsFeed = () => {
   const [loadPost, setLoadPost] = useState(true); /* Fonction pr charger les posts une seule fois */
+  const [count, setCount] = useState(5); /* Affichage de 5 posts par 5 pour l'infinite Scroll */
   const dispatch = useDispatch(); /* Pr envoyer une action */
   const posts = useSelector((state) => state.postReducer); /* Pr avoir les posts */
 
+  const loadMore = () => { /* fonction infinite scroll */
+    if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) { /* Pr savoir si on est en bas de page */
+      setLoadPost(true); /* Si oui affiche les autre posts 5 par 5 */
+    }
+  }
+
   useEffect(() => {
     if (loadPost) { /* Si loadPost est TRUE alors on execute */
-      dispatch(getPosts()); /* Pr remplir le store de data */
+      dispatch(getPosts(count)); /* Pr remplir le store de data // count pour le nbre de posts infinite scroll */
       setLoadPost(false); /* Une fois que l'action est déclarée : FALSE pr ne plus l'envoyer */
+      setCount(count + 5); /* Pr affichage des posts de 5 en 5 */
     }
-  }, [loadPost, dispatch]); /* callback pour lancer la fonction a chaque chgt */
+
+    window.addEventListener('scroll', loadMore); /* A chaque event on analyse dans le DOM la fonction loadMore */
+    return () => window.removeEventListener('scroll', loadMore); /* removeeventlistener dans la doc useEffect */
+
+  }, [loadPost, dispatch, count]); /* callback pour lancer la fonction a chaque chgt */
 
   /* RENDU VISUEL FRONTEND */
   return (

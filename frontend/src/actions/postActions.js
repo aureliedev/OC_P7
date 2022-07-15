@@ -8,14 +8,15 @@ export const LIKE_POST = "LIKE_POST";
 export const DISLIKE_POST = "DISLIKE_POST";
 
 /*---------getPosts----------*/
-export const getPosts = () => {
+export const getPosts = (number) => { /*number: nbre de posts pr l'infinite scroll */
   return (dispatch) => { /* dispatch: ce qui est envoyé au reducer */
     return axios 
       .get( `${process.env.REACT_APP_URL_API}api/post/` )
       .then((res) => {
+        const array = res.data.slice(0, number) /* Pr récup les 5 premiers post de l'infinite scroll */
         dispatch({ /* dispatch de la res dans le store */
           type: GET_POSTS,
-          payload: res.data,
+          payload: array
         }); /* type: envoyé au reducer - payload: chargement de la reponse au reducer s*/
       })
       .catch((err) => console.log(err));
