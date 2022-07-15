@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { isEmpty, parserDate } from "../Utils";
+import LikeButton from "./LikeButton";
 
 /*---------Fonction des cards----------*/
 const Card = ({ post }) => {
@@ -67,7 +68,7 @@ const Card = ({ post }) => {
               <img src={post.picture} alt="photographie de post" className="card-pic" />
             )}
             <div className="card-footer"> 
-              <h6> BUTTON LIKE </h6>
+              <LikeButton post={post} />
             </div>
           </div>
         </>
