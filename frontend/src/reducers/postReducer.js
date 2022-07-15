@@ -1,6 +1,6 @@
 /* INFOS DE L'USER CONNECTÉ AUXQUELLES ON A ACCÉS */
 /*---------IMPORT----------*/
-import { GET_POSTS, LIKE_POST, DISLIKE_POST } from "../actions/postActions";
+import { GET_POSTS, LIKE_POST, DISLIKE_POST, UPDATE_POST } from "../actions/postActions";
 
 /*-------------------*/
 const initialState = {};
@@ -30,6 +30,17 @@ export default function postReducer(state = initialState, action) {
         }
         return post;
       });
+      case UPDATE_POST: /*UPDATE POST */
+      return state.map((post) => { /* On map les posts */
+        if (post._id === action.payload.postId) { /*il faut qu le post soit egal au postId q'on envoi = ON identifit le post en question */
+          return {
+            ...post,
+            message: action.payload.message, /* On prend le tableau des likers, on les filtres par son id et on le retire du tableau*/
+          };
+        }
+        else return post;
+      });
+      
     default:
       return state;
   }

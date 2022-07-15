@@ -1,7 +1,8 @@
 /*******************************  CARD DU FIL D'ACTUALITÉ **********************************/
 /*---------IMPORT----------*/
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../../actions/postActions";
 import { isEmpty, parserDate } from "../Utils";
 import LikeButton from "./LikeButton";
 
@@ -12,12 +13,13 @@ const Card = ({ post }) => {
   const [textUpdate, setTextUpdate] = useState(null); /* Pr stoker le chgt de texte qui est NULL de base */
   const allUsersData = useSelector((state) => state.allUsersReducer); /* Pr avoir la data des utilisateurs */
   const userData = useSelector((state) => state.userReducer); /* Pr avoir la data d'un utilisateur */
+  const dispatch = useDispatch();
 
   const updateItem = () => { /* fonction pour mettre a jour le message du post */
-    // if (textUpdate) {
-    //   dispatch(updatePost(post._id, textUpdate));
-    // }
-    // setIsUpdated(false);
+    if (textUpdate) { /* On vérifie si il y a un new post */
+      dispatch(updatePost(post._id, textUpdate)); /*Si oui on MAJ le post avec son Id et le texte du message */
+    }
+    setIsUpdated(false);
   };
 
   useEffect(() => {
