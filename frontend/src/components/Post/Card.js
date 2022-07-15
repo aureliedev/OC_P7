@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../actions/postActions";
 import { isEmpty, parserDate } from "../Utils";
+import DeleteCard from "./DeleteCard";
 import LikeButton from "./LikeButton";
 
 /*---------Fonction des cards----------*/
@@ -93,6 +94,7 @@ const Card = ({ post }) => {
                 <div onClick={() => setIsUpdated(!isUpdated)}> {/* !isUpdated: Pr ne plus afficher l'icone de modif post en recliquant dessus */}
                   <img src="./img/icons/edit.svg" alt="éditer la publication" />
                 </div>
+                <DeleteCard id ={post._id} /> {/* component DeleteCard */}
               </div>
             )}
             <div className="card-footer"> 

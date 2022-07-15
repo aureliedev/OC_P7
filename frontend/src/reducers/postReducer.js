@@ -1,6 +1,6 @@
 /* INFOS DE L'USER CONNECTÉ AUXQUELLES ON A ACCÉS */
 /*---------IMPORT----------*/
-import { GET_POSTS, LIKE_POST, DISLIKE_POST, UPDATE_POST } from "../actions/postActions";
+import { GET_POSTS, LIKE_POST, DISLIKE_POST, UPDATE_POST, DELETE_POST } from "../actions/postActions";
 
 /*-------------------*/
 const initialState = {};
@@ -40,7 +40,10 @@ export default function postReducer(state = initialState, action) {
         }
         else return post;
       });
-      
+
+      case DELETE_POST: /*DELETE POST */
+      return state.filter((post) => post._id !== action.payload.postId); /* return le state mais on le filtrant les posts */
+
     default:
       return state;
   }
