@@ -2,6 +2,7 @@
 /*---------IMPORT----------*/
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { likePost } from "../../actions/postActions";
 import { UidContext } from "../AppContext";
 
 /*--------- FONCTION BOUTON LIKE ----------*/
@@ -11,8 +12,8 @@ const LikeButton = ({ post }) => {
   const dispatch = useDispatch();
 
   const like = () => {
-    // dispatch(likePost(post._id, uid))
-    // setLiked(true);
+    dispatch(likePost(post._id, uid))
+    setLiked(true);
   };
   const dislike = () => {
 
