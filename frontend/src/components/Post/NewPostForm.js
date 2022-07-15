@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { isEmpty } from "../Utils";
+import { isEmpty, timestampParser } from "../Utils";
 
 /*--------- FONCTION FORMULAIRE DE POST ----------*/
 const NewPostForm = () => {
@@ -55,6 +55,25 @@ const NewPostForm = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
             />
+            {message || postPicture ? ( /* Si le message est sur true alors on affiche */
+                <li className="card-container">
+                  <div className="card-left">
+                    <img src={userData.picture} alt="Img du profil utilisateur"/>
+                  </div>  
+                  <div className="card-right">
+                    <div className="card-header">
+                      <div className="pseudo">
+                        <h3>{userData.pseudo}</h3>
+                      </div>
+                      <span> {timestampParser(Date.now())} </span> {/* affiche lheure et la date dans le newpost */}
+                    </div>
+                    <div className="content"> {/* previsualisation du futur post en front */}
+                      <p>{message}</p>
+                      <img src={postPicture} alt="" />
+                    </div>
+                  </div>
+                </li>
+              ) : null}
           <div className="footer-form">
             <div className="icon">
                 {isEmpty() && (
