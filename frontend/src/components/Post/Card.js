@@ -66,7 +66,9 @@ const Card = ({ post }) => {
             {post.picture && (
               <img src={post.picture} alt="photographie de post" className="card-pic" />
             )}
-            <div className="card-footer"> </div>
+            <div className="card-footer"> 
+              <h6> BUTTON LIKE </h6>
+            </div>
           </div>
         </>
       )}
