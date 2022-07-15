@@ -14,7 +14,10 @@ const Card = ({ post }) => {
   const userData = useSelector((state) => state.userReducer); /* Pr avoir la data d'un utilisateur */
 
   const updateItem = () => { /* fonction pour mettre a jour le message du post */
-    
+    // if (textUpdate) {
+    //   dispatch(updatePost(post._id, textUpdate));
+    // }
+    // setIsUpdated(false);
   };
 
   useEffect(() => {

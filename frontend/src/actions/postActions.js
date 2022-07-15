@@ -6,6 +6,7 @@ import axios from "axios";
 export const GET_POSTS = "GET_POSTS";
 export const LIKE_POST = "LIKE_POST";
 export const DISLIKE_POST = "DISLIKE_POST";
+export const UPDATE_POST = "UPDATE_POST";
 
 /*---------getPosts----------*/
 export const getPosts = (number) => { /*number: nbre de posts pr l'infinite scroll */
@@ -48,6 +49,21 @@ export const dislikePost = (postId, userId) => {
     })
       .then((res) => {
         dispatch({ type: DISLIKE_POST, payload: { postId, userId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+/*---------UpdatePost----------*/
+export const updatePost = (postId, message) => {
+  return (dispatch) => {
+    return axios({
+      method: "put",
+      url: `${process.env.REACT_APP_URL_API}api/post/${postId}`,
+      data: { message },
+    })
+      .then((res) => {
+        dispatch({ type: UPDATE_POST, payload: { message, postId } });
       })
       .catch((err) => console.log(err));
   };
