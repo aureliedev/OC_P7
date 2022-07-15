@@ -14,6 +14,22 @@ const NewPostForm = () => {
   const [file, setFile] = useState(); /* */
   const userData = useSelector((state) => state.userReducer); /* Pr aller cherhcer le contenu du store */
 
+  const handlePicture = (e) => {
+
+  };
+
+  const cancelPost = () => { /* Annuler le post */
+    setMessage('');
+    setPostPicture('');
+    setFile('');
+  };
+  
+  const handlePost = () => {
+
+  };
+
+
+
   useEffect(() => {
     if (!isEmpty(userData))
       setIsLoading(false); /*Si le store a la date des users alors on passe le spinner sur FAlse */
@@ -39,6 +55,33 @@ const NewPostForm = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
             />
+          <div className="footer-form">
+            <div className="icon">
+                {isEmpty() && (
+                    <>
+                      <img src="./img/icons/picture.svg" alt="img pour la publication" />
+                      <input
+                        type="file"
+                        id="file-upload"
+                        name="file"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e) => handlePicture(e)}
+                      />
+                    </>
+                )}
+            </div>
+            <div className="btn-send"> {/*Bouton envoyer */}
+            {message || postPicture ? ( /* verifie que le message n'est pas vide pr apparaitre */
+                 <button className="cancel" onClick={cancelPost}>
+                    Annuler message
+                 </button>
+                ) : null}
+                <button className="send" onClick={handlePost}>
+                    Envoyer
+                </button>
+                
+            </div>
+          </div>
         </div>
       </>
       )}
