@@ -51,10 +51,10 @@
           }
         }
         .active-btn {
-          background: $color-1;
+          background: $color-2;
 
           &:hover {
-            background: $color-2;
+            background: $color-1;
           }
         }
         li:not(.active-btn) {
@@ -198,7 +198,7 @@
     }
     .right-part {
       text-align: center;
-      padding: 20px 40px;
+      padding: 80px 40px;
       h3 {
         margin-bottom: 12px;
       }
