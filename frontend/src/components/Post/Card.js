@@ -25,34 +25,33 @@ const Card = ({ post }) => {
 
   useEffect(() => {
     !isEmpty(allUsersData[0]) &&
-      setIsLoading(
-        false
-      ); /*Si la data est présente, on retire le LOADING de fontasome */
-  }, [allUsersData]);
+      setIsLoading(false); /*Si la data est présente, on retire le LOADING de fontasome */
+  }, [allUsersData]); /* callback de oute la data des users */
 
   /* RENDU VISUEL FRONTEND */
   return (
     <li className="card-container" key={post._id}>
-      {isLoading ? (
-        /* isLoading est sur TRUE alors.. */ <i className="fas fa-spinner fa-spin"></i>
+      {isLoading ? ( /* isLoading est sur TRUE alors.. */ 
+      <i className="fas fa-spinner fa-spin"></i>
       ) : (
         <>
           <div className="card-left">
-            <img /* Récup de la data des images */ 
+            <img /* Récup de la data des images */
               src={
                 !isEmpty(
                   allUsersData[0]
                 ) /* On verifie si la data est présente */ &&
                 allUsersData
-                  .map((user) => {
-                    /* map: pr chercher la photo de l'user */
+                  .map((user) => { /* map: pr chercher la photo de l'user */
                     if (user._id === post.posterId) {
                       return user.picture; /* Si photo trouvé, on l'affiche */
                     } else {
                       return null; /* Sinon stop */
                     }
                   })
-                  .join("") /* string vide pour ne pas mettre de virgule entre chaque lettre */
+                  .join(
+                    ""
+                  ) /* string vide pour ne pas mettre de virgule entre chaque lettre */
               }
               alt="Avatar utilisateur"
             />
@@ -60,8 +59,9 @@ const Card = ({ post }) => {
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                <h3> 
-                  { /* Récup du pseudo utilisateur */ 
+                <h3>
+                  {
+                    /* Récup du pseudo utilisateur */
                     !isEmpty(allUsersData[0]) &&
                       allUsersData.map((user) => {
                         if (user._id === post.posterId) return user.pseudo;
@@ -70,14 +70,17 @@ const Card = ({ post }) => {
                   }
                 </h3>
               </div>
-              <span>{parserDate(post.createdAt)}</span> {/* affichage de la date (fonction dans utils.js) */ }
+              <span>{parserDate(post.createdAt)}</span>{" "}  {/* affichage de la date (fonction dans utils.js) */}
             </div>
-            {isUpdated === false && <p>{post.message} </p>} {/* Si chgt alors tu affiches le boutton */}
+            {isUpdated === false && <p>{post.message} </p>}{" "}
+            {/* Si chgt alors tu affiches le boutton */}
             {isUpdated && (
-              <div className="update-post"> 
+              <div className="update-post">
                 <textarea
                   defaultValue={post.message} /* Affiche le message initial */
-                  onChange={(e) => setTextUpdate(e.target.value)} /* A chaque changement on récup la value */
+                  onChange={(e) =>
+                    setTextUpdate(e.target.value)
+                  } /* A chaque changement on récup la value */
                 />
                 <div className="button-container">
                   <button className="btn" onClick={updateItem}>
@@ -87,17 +90,30 @@ const Card = ({ post }) => {
               </div>
             )}
             {post.picture && (
-              <img src={post.picture} alt="photographie de post" className="card-pic" />
+              <img
+                src={post.picture}
+                alt="photographie de post"
+                className="card-pic"
+              />
             )}
-            {userData._id === post.posterId && (
+            {userData.isAdmin ? ( /* Gestion des posts grace a l'administrateur */
               <div className="button-container">
-                <div onClick={() => setIsUpdated(!isUpdated)}> {/* !isUpdated: Pr ne plus afficher l'icone de modif post en recliquant dessus */}
-                  <img src="./img/icons/edit.svg" alt="éditer la publication" />
+                <div onClick={() => setIsUpdated(!isUpdated)}>
+                  <img src="./img/icons/edit.svg" alt="edit" />
                 </div>
-                <DeleteCard id ={post._id} /> {/* component DeleteCard */}
+                <DeleteCard id={post._id} />
               </div>
+            ) : (
+              userData._id === post.posterId && (
+                <div className="button-container">
+                  <div onClick={() => setIsUpdated(!isUpdated)}>
+                    <img src="./img/icons/edit.svg" alt="edit" />
+                  </div>
+                  <DeleteCard id={post._id} />
+                </div>
+              )
             )}
-            <div className="card-footer"> 
+            <div className="card-footer">
               <LikeButton post={post} />
             </div>
           </div>

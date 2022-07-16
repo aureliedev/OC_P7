@@ -31,6 +31,7 @@ export const addPost = (data) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_URL_API}api/post/`, data)
+      
   }
 };
   

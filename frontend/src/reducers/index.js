@@ -10,5 +10,5 @@ import postReducer from './postReducer';
 export default combineReducers({
     userReducer,
     allUsersReducer,
-    postReducer 
+    postReducer
 });

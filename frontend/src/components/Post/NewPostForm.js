@@ -36,8 +36,8 @@ const NewPostForm = () => {
         }
 
         await dispatch(addPost(data)); /* dispatch la data dans le store */
-        dispatch(getPosts());
-        cancelPost();
+        dispatch(getPosts()); /*On recup la data en front avec getPosts */
+        cancelPost(); /*Pr pouvoir supprimer un post */
 
     } else {
         alert("Veuillez entrer un message");
