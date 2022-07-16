@@ -1,21 +1,23 @@
 /******************************* FORMULAIRE DE NEW POST **********************************/
 /*---------IMPORT----------*/
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { addPost, getPosts } from "../../actions/postActions";
 import { isEmpty, timestampParser } from "../Utils";
 
 /*--------- FONCTION FORMULAIRE DE POST ----------*/
 const NewPostForm = () => {
-  const [isLoading, setIsLoading] =
-    useState(true); /* Loader si connexion lente */
+  const [isLoading, setIsLoading] = useState(true); /* Loader si connexion lente */
   const [message, setMessage] = useState(""); /*Pr les messages de post */
-  const [postPicture, setPostPicture] = useState(null); /*Pr les images */
-  const [file, setFile] = useState(); /* */
+  const [postPicture, setPostPicture] = useState(null); /*Pr les images a aficher en front */
+  const [file, setFile] = useState(); /* fichier de l'image a passer en database */
   const userData = useSelector((state) => state.userReducer); /* Pr aller cherhcer le contenu du store */
+  const dispatch = useDispatch();
 
   const handlePicture = (e) => {
-
+    setPostPicture(URL.createObjectURL(e.target.files[0])); /* Pr prévisualiser l'image en front */
+    setFile(e.target.files[0]); /*Pr envoyer en database */
   };
 
   const cancelPost = () => { /* Annuler le post */
@@ -24,8 +26,22 @@ const NewPostForm = () => {
     setFile('');
   };
   
-  const handlePost = () => {
+  const handlePost = async () => { /* Pr avoir la data du post avec le posterId et le message */
+    if(message || postPicture) {
+        const data = new FormData();
+        data.append("posterId", userData._id);
+        data.append("message", message);
+        if(file) {
+            data.append("file", file);
+        }
 
+        await dispatch(addPost(data)); /* dispatch la data dans le store */
+        dispatch(getPosts());
+        cancelPost();
+
+    } else {
+        alert("Veuillez entrer un message");
+    }
   };
 
 
@@ -33,7 +49,7 @@ const NewPostForm = () => {
   useEffect(() => {
     if (!isEmpty(userData))
       setIsLoading(false); /*Si le store a la date des users alors on passe le spinner sur FAlse */
-  }, [userData]); /* callback de la userData */
+  }, [userData, message]); /* callback de la userData */
 
   /* RENDU VISUEL FRONTEND */
   return (

@@ -4,6 +4,7 @@ import axios from "axios";
 
 /*---------POSTS----------*/
 export const GET_POSTS = "GET_POSTS";
+export const ADD_POST = "ADD_POST";
 export const LIKE_POST = "LIKE_POST";
 export const DISLIKE_POST = "DISLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
@@ -24,6 +25,15 @@ export const getPosts = (number) => { /*number: nbre de posts pr l'infinite scro
       .catch((err) => console.log(err));
   }
 };
+
+/*---------AddPost----------*/
+export const addPost = (data) => {
+  return (dispatch) => {
+    return axios
+      .post(`${process.env.REACT_APP_URL_API}api/post/`, data)
+  }
+};
+  
 
 /*---------likePost----------*/
 export const likePost = (postId, userId) => {
