@@ -95,13 +95,15 @@ const NewPostForm = () => {
                 {isEmpty() && (
                     <>
                       <img src="./img/icons/picture.svg" alt="img pour la publication" />
-                      <input
-                        type="file"
-                        id="file-upload"
-                        name="file"
-                        accept=".jpg, .jpeg, .png"
-                        onChange={(e) => handlePicture(e)}
-                      />
+                      <label> Choisir_un_fichier
+                        <input
+                          type="file"
+                          id="file-upload"
+                          name="file"
+                          accept=".jpg, .jpeg, .png"
+                          onChange={(e) => handlePicture(e)}
+                        />
+                      </label>
                     </>
                 )}
             </div>

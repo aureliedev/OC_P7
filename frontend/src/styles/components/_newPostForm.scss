@@ -143,6 +143,10 @@
             background: $color-3;
           }
         }
+        label {
+          padding-left: 10px ;
+          color: $color-4;     
+        }
 
         input {
           width: 25px;
