@@ -14,15 +14,11 @@ const app = express();
 
 /* CONFIG DOTENV */
 require("dotenv").config({ path: "./config/.env" });
-const username = process.env.dbUserName;
-const password = process.env.dbPassword;
-const db = process.env.DB_NAME;
+const DATABASE = process.env.DB_NAME;
 
 /* Connexion à la base de données MongoDB */
 mongoose
-  .connect(
-    `mongodb+srv://${username}:${password}@cluster0.ndndt.mongodb.net/${db}?retryWrites=true&w=majority`
-  )
+  .connect(`${DATABASE}`)
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
