@@ -5,7 +5,7 @@ import axios from 'axios';
 import cookie from 'js-cookie'; /* Pour retirer le cookie du front egalement*/
 
 /*---------Function LOGOUT----------*/
-const Logout = () => {
+const LogOut = () => {
 
     const removeCookie = (key) => {
         if (window !== "undefined") { /* si la fenetre n'est pas undeined */
@@ -13,7 +13,7 @@ const Logout = () => {
         }
       };
 
-    const Logout = async () => {
+    const LogOut = async () => {
         await axios({
           method: "get",
           url: `${process.env.REACT_APP_URL_API}api/user/logout`,
@@ -25,12 +25,13 @@ const Logout = () => {
         window.location = "/";
       };
 
+    /*RENDU VISUEL FRONTEND*/  
     return (
-        <li onClick={Logout}>
+        <li onClick={LogOut}>
             <img src="./img/icons/logout.svg" alt="Déconnexion" />
         </li>
     );
 };
 
 /*---------EXPORT----------*/
-export default Logout;
+export default LogOut;
