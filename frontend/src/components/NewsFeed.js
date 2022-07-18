@@ -33,7 +33,7 @@ const NewsFeed = () => {
 
   /* RENDU VISUEL FRONTEND */
   return (
-    <div className="thread-container">
+    <div className="feed-container">
       <ul> {/* Va afficher les cards grace a leurs posts ID */}
         {!isEmpty(posts[0]) &&
           posts.map((post) => {

@@ -37,7 +37,7 @@ function LogInForm () {
           console.log(res.data.emailError, emailError);
 
         } else {
-          window.location="/"; /* Connexion réussie */
+          window.location="/feed"; /* Connexion réussie */
         }
       })
       .catch ((err) => {

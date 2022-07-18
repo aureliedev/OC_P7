@@ -15,7 +15,7 @@ const NavBar = () => {
     <nav>
       <div className="nav-container">
         <div className="logo">
-          <NavLink exact="true" to="/">
+          <NavLink exact="true" to="/feed">
             <div className="logo">
               <img
                 src="./img/icon-left-font-monochrome-black.svg"
@@ -26,7 +26,11 @@ const NavBar = () => {
         </div>
         {uid ? (
           <ul>
-            <li></li>
+            <li>
+            <NavLink to="/profil" exact activeclassname="active-left-nav">
+            <img src="./img/icons/user.svg" alt="Page profil" />
+          </NavLink>
+            </li>
             <li className="welcome">
               <NavLink exact to="/profil">
                  <h5>Bienvenue {userData.pseudo}</h5> {/* récup le pseudo grace a redux */}

@@ -15,7 +15,7 @@ const Home = () => {
     <div className="home">
       <LeftNavBar />
       <div className="main">
-        <div className="home-header">
+        <div className="feed-header">
           {uid ? <NewPostForm /> : null}
         </div>
         

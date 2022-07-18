@@ -7,9 +7,9 @@
   }
 
   .log-container {
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 100%;
+    margin: 0 auto;
 
     @media screen and(max-width: 885px) {
       grid-template-columns: 1fr;
@@ -104,8 +104,8 @@
   }
   .img-container {
     display: grid;
-    align-items: center;
-    height: 100%;
+    grid-template-columns: 100%;
+    margin: 0 auto;
 
     img {
       height: 280px;

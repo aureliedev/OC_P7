@@ -5,9 +5,9 @@ import Profil from '../../pages/Profil';
 function index() {
   return (
     <Routes>
-      <Route path="/wall" exact element={<Home />} />
+      <Route path="/feed" exact element={<Home />} />
       <Route path="/profil" exact element={<Profil />} />
-      <Route path="*" exact element={<Home />} /> {/* Redirection HomePage */}
+      <Route path="*" exact element={<Profil />} /> {/* Redirection profilLog */}
     </Routes>
 
   );

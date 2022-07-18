@@ -13,7 +13,7 @@ const LeftNavBar = () => {
     <div className="left-nav-container">
       <div className="icons">
         <div className="icons-bis">
-          <NavLink to="/" exact activeclassname="active-left-nav">
+          <NavLink to="/feed" exact activeclassname="active-left-nav">
             <img src="./img/icons/home.svg" alt="Accueil" />
           </NavLink>
           <br />
