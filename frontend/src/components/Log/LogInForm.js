@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 /* fonction du formulaire Login */
-function LogInForm () {
+const LogInForm = () =>  {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,19 +31,17 @@ function LogInForm () {
         })
         .then ((res) =>{
         console.log(res);
-        if (res.data.errors){ /* Gestion des errors du backend */
-          emailError.innerHTML= res.data.errors.email;
+        /* Gestion des errors du backend */
+        if (res.data.errors) { 
+          emailError.innerHTML = res.data.errors.email;
           passwordError.innerHTML = res.data.errors.password;
-          console.log(res.data.emailError, emailError);
-
         } else {
           window.location="/feed"; /* Connexion réussie */
         }
       })
-      .catch ((err) => {
-          console.log(err);
-      })
-      }}
+      .catch ((err) => {console.log(err);})
+    }
+  };
 
   /* Affichage du fomulaire Login*/
   return (
@@ -75,7 +73,7 @@ function LogInForm () {
       <input type="submit" value="Se connecter" />
     </form>
   );
-}
+};
 
 /*---------EXPORT--------*/
 export default LogInForm;

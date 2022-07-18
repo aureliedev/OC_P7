@@ -14,10 +14,8 @@ function SignUpForm() {
     const [controlPassword, setControlPassword] = useState('');
 
     /* Pour la communication avec le backend */
-    const handleSignup = async(e) => {
+    const handleSignup = async (e) => {
         e.preventDefault(); /* pas de rechargement de page quand il y a une action */
-        
-        
 
         /* Gestion des errors */
         const pseudoError = document.querySelector('.pseudo.error');
@@ -26,9 +24,7 @@ function SignUpForm() {
         const passwordConfirmError = document.querySelector('.password-confirm.error');
 
         //passwordConfirmError.innerHTML = "";
-        
-        
- 
+
         if(password !== controlPassword) {
             passwordConfirmError.innerHTML = "Les mots de passe ne correspondent pas";
         } 
@@ -45,10 +41,10 @@ function SignUpForm() {
             })
             .then((res) => {
                 console.log(res);
-                if(res.data.errors) {
-                    pseudoError.innerHTML = "res.data.errors.pseudo";
-                    emailError.innerHTML = "res.data.errors.email";
-                    passwordError.innerHTML = "res.data.errors.password";
+                if (res.data.errors) {
+                    pseudoError.innerHTML = res.data.errors.pseudo;
+                    emailError.innerHTML = res.data.errors.email;
+                    passwordError.innerHTML = res.data.errors.password;
                 } else {
                     setFormSubmit(true);
                 }
