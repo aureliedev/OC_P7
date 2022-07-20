@@ -23,6 +23,7 @@ Rendez vous sur: https://www.mongodb.com/fr-fr
 - Rendez vous dans le sous dossier 'backend' via la commande 'cd backend' depuis votre terminal
 - Taper 'npm install' depuis votre terminal pour installé le dossier 'node_modules' dans le projet
 - Taper 'npm start' pour demarrer le projet, le message 'Connexion à MongoDB réussie !' apparaitra.
+- changer 'false' par 'true' (SANS LES GUILLEMETS DE DEBUT ET DE FIN) dans la base de donnée a la ligne isAdmin pour avoir les droits administrateur
 
 
 # Lancer le frontend du projet
